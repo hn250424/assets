@@ -1,0 +1,22 @@
+{
+  "name": "typescript-web",
+  "version": "1.0.0",
+  "main": "build/ts/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ts": "npx tsc",
+    "build:assets": "copyfiles -u 1 src/assets/**/* build/",
+    "build:index": "copyfiles -u 1 src/index.html build/",
+    "build": "npm run build:ts && npm run build:assets && npm run build:index && copyfiles package.json build/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "live-server": "^1.2.2",
+    "typescript": "^5.6.2"
+  },
+  "type": "module"
+}

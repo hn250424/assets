@@ -1,0 +1,31 @@
+{
+  "name": "typescript-electron",
+  "version": "1.0.0",
+  "main": "build/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ts": "npx tsc",
+    "build:assets": "copyfiles -u 1 src/assets/**/* build/",
+    "build:index": "copyfiles -u 1 src/index.html build/",
+    "build": "npm run build:ts && npm run build:assets && npm run build:index",
+    "start": "npm run build && electron .",
+    "make": "npm run build && electron-builder"
+  },
+  "build": {
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "copyfiles": "^2.4.1",
+    "electron": "^32.1.0",
+    "electron-builder": "^25.0.5",
+    "typescript": "^5.6.2"
+  },
+  "type": "module"
+}

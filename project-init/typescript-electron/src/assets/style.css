@@ -1,0 +1,7 @@
+span {
+    color: red;
+}
+
+span:hover {
+    cursor: pointer;
+}
