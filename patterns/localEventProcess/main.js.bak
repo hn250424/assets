@@ -1,0 +1,76 @@
+class MySocket {
+    constructor() { this.events = {} }
+
+    on(eventName, listener) { 
+        (this.events[eventName] ||= []).push(listener) 
+        return listener
+    }
+
+    emit(eventName, ...args) {
+        if (this.events[eventName]) {
+            this.events[eventName].forEach(listener => {
+                listener(...args)
+            })
+        }
+    }
+
+    off(eventName, listener) {
+        if (this.events[eventName]) {
+            this.events[eventName] = this.events[eventName].filter(
+                l => l !== listener
+            );
+        }
+    }
+
+    listenerCount(eventName) { return (this.events[eventName] ||= []).length }
+
+    // 데이터 수신을 시뮬레이션하는 메서드.
+    receiveData(data) { this.emit('data', data) }
+}
+
+const MySocket = require('./MySocket')
+const mySocket = new MySocket()
+
+// 요청별 응답을 추적하기 위한 객체
+let responseMap = {}
+
+async function specificListener(requestId) {
+    return new Promise((resolve, reject) => {
+        // dataListener는 'data' 이벤트를 처리
+        const dataListener = (data) => {
+            if (responseMap[requestId]) {
+                responseMap[requestId].resolve(data)
+                mySocket.off('data', dataListener)
+            }
+        }
+
+        // 요청에 대한 응답을 처리할 eventHandler
+        const eventHandler = (data) => {
+            // 응답을 받아서 해당 requestId와 매핑
+            resolve(data)
+            mySocket.off(requestId, eventHandler)
+        }
+
+        // dataListener 등록
+        mySocket.on('data', dataListener)
+        // 해당 requestId로 응답 처리 등록
+        mySocket.on(requestId, eventHandler)
+
+        // 요청 보내기
+        responseMap[requestId] = { resolve }
+
+        // 데이터를 수신하는 시뮬레이션
+        mySocket.receiveData(`파일 또는 특정 메서드 ${requestId}에서 socket.write() 썼다고 가정. 그에 대한 응답: blah blah...`)
+    })
+}
+
+async function main() {
+    try {
+        console.log(await specificListener('can.js')) // 첫 번째 요청
+        console.log(await specificListener('model.js')) // 두 번째 요청
+    } catch (error) {
+        console.error('Error:', error)
+    }
+}
+
+main()
