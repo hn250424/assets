@@ -10,18 +10,20 @@ def main():
         while True:
             # 명령어 입력 받기
             command_line = sys.stdin.readline().strip()
-            parts = command_line.split()  # 공백을 기준으로 명령어와 파라미터 분리
-            
-            response = {
-                'result': 1,
-                'data': ''
-            }
+            parts = command_line.split()  # 공백을 기준으로 파라미터 분리
 
             if len(parts) == 0:
                 continue  # 빈 명령어 리턴
 
-            command = parts[0]  # 명령어
-            params = parts[1:]  # 명령어에 따른 파라미터
+            command = parts[0]      # 명령어
+            requestId = parts[1]    # 식별자.
+            params = parts[2:]      # 명령어에 따른 파라미터
+            
+            response = {
+                'result': 1,
+                'requestId': requestId,
+                'data': ''
+            }
 
             if command == 'connect':
                 if len(params) == 1:
