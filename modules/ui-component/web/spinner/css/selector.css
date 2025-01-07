@@ -1,6 +1,0 @@
-@import './variable.css';
-
-#selector {
-    height: var(--selector-height);
-    border: 1px solid var(--settingbox-color);
-}

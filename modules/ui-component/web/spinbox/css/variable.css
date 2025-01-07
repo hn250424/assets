@@ -1,0 +1,10 @@
+:root {
+    --settings-box-height: 40px;
+
+    --slider-track-height: 5px;
+    --slider-handle-height: 20px;
+    --slider-margin-top-container: 10px; /* calc가 안 먹어서 일단 하드코딩. */
+    --slider-margin-top-handle: -8px; /* calc가 안 먹어서 일단 하드코딩. */
+    
+    --settingbox-color: #ddd;
+}
