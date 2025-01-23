@@ -13,3 +13,7 @@ function shuffle<T>(array: T[]): T[] {
 
     return array
 }
+
+type DeepReadonly<T> = T extends object
+  ? { readonly [K in keyof T]: DeepReadonly<T[K]> }
+  : T;
