@@ -19,7 +19,7 @@ function getPhi(x, y) {
     return Math.atan2(y, x)
 }
 
-function getCoordinates(r, theta, phi) {
+function getVector3(r, theta, phi) {
     const x = r * Math.sin(theta) * Math.cos(phi)
     const y = r * Math.sin(theta) * Math.sin(phi)
     const z = r * Math.cos(theta)
@@ -28,9 +28,9 @@ function getCoordinates(r, theta, phi) {
 
 // *** Example.
 const currentValue = {
-    x: 3.1,
+    x: 0,
     y: 0,
-    z: 3.1,
+    z: 9.6,
     theta: null,
     phi: null,
     radius: null
@@ -46,14 +46,14 @@ const targetValue = {
     x: null,
     y: null,
     z: null,
-    theta: 67.5,
+    theta: 75,
     phi: 0,
     radius: currentValue.radius
 }
 const rTheta = degreeToRadian(targetValue.theta)
 const rPhi = degreeToRadian(targetValue.phi)
 
-const coordinates = getCoordinates(targetValue.radius, rTheta, rPhi)
+const coordinates = getVector3(targetValue.radius, rTheta, rPhi)
 targetValue.x = coordinates.x
 targetValue.y = coordinates.y
 targetValue.z = coordinates.z
