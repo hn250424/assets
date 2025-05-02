@@ -1,0 +1,7 @@
+@use './variables.scss' as *;
+
+$app_width: 1600px;
+
+#app_container {
+    width: $app_width;
+}
