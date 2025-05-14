@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Home from '../pages/home/Home';
 import Pay from '../pages/pay/Pay';
 import Sign from '../pages/sign/Sign';
