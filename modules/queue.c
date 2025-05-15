@@ -46,14 +46,10 @@ bool dequeue(struct Queue* q) {
     return true;
 }
 
-int peek(struct Queue* q) {
-    // You must check isEmpty before call this.
-    if (isEmpty(q)) {
-        printf("Error: Queue is empty. Cannot peek.\n");
-        exit(1);
-    }
-
-    return q->items[q->front];
+bool peek(struct Queue* q, int* out) {
+    if (isEmpty(q)) return false;
+     *out = q->items[q->front];
+    return true;
 }
 
 void displayQueue(struct Queue* q) {
@@ -87,6 +83,18 @@ int main() {
     enqueue(&q, 777);
 
     displayQueue(&q);
+
+    dequeue(&q);
+    dequeue(&q);
+    dequeue(&q);
+    dequeue(&q);
+    
+    int out;
+    if (peek(&q, &out)) printf("%d\n", out);
+    else printf("Queue is empty\n");
+    dequeue(&q);
+    if (peek(&q, &out)) printf("%d\n", out);
+    else printf("Queue is empty\n");
 
     return 0;
 }
