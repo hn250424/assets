@@ -35,12 +35,12 @@ dummy text ~~cancel text~~ dummy text
 [https://github.com/](https://github.com/)  
 
 ## Image
-`![Alt text](https://github.com/hn250424/assets/blob/main/cmd/home_icon.png)`  
-![Alt text](https://github.com/hn250424/assets/blob/main/cmd/home_icon.png)
+`![Alt text](https://github.com/hn250424/assets/blob/main/notes/home_icon.png)`  
+![Alt text](https://github.com/hn250424/assets/blob/main/notes/home_icon.png)
 
 ## Image link
-`[![Alt text](https://github.com/hn250424/assets/blob/main/cmd/home_icon.png)](https://github.com/hn250424)`  
-[![Alt text](https://github.com/hn250424/assets/blob/main/cmd/home_icon.png)](https://github.com/hn250424)
+`[![Alt text](https://github.com/hn250424/assets/blob/main/notes/home_icon.png)](https://github.com/hn250424)`  
+[![Alt text](https://github.com/hn250424/assets/blob/main/notes/home_icon.png)](https://github.com/hn250424)
 
 ## Code block  
 \`\`\`
