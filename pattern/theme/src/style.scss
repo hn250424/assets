@@ -1,0 +1,15 @@
+@use './theme.scss';
+
+#sq {
+    width: 300px;
+    height: 100px;
+
+    background-color: var(--primary-color);
+}
+
+button {
+    width: 300px;
+    height: 100px;
+
+    background-color: grey;
+}
