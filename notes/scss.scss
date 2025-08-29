@@ -1,0 +1,115 @@
+// var.
+$backgroundColor: red;
+$titleColor: blue;
+
+// nesting.
+#container {
+    background-color: $backgroundColor;
+
+    #title {
+        color: $titleColor;
+    }
+}
+
+// selector.
+#container {
+    &:hover {
+        cursor: pointer;
+    }
+
+    p {
+        &:nth-child(2) {
+            color: alpha($color: #000000);
+        }
+    }
+}
+
+// if.
+$containerWidth: 200px;
+#container {
+    @if ($containerWidth > 100px) {
+        font-size: 32px;
+    }
+}
+
+// mixin
+@mixin alarmText($color: yellow, $size: 16px) {
+    color: $color;
+    font-size: $size;
+    @content;
+}
+#container {
+    p {
+        &:nth-child(2) {
+            @include alarmText($color: red) {
+                font-weight: bold;
+            }
+        }
+    }
+}
+
+// extend.
+.p {
+    color: blue;
+    font-size: 16px;
+}
+#container {
+    p {
+        &:nth-child(2) {
+            @extend .p;
+            font-size: 24px;
+        }
+    }
+}
+
+// function.
+@function getHeight($width) {
+    @if ($width > 200px) {
+        @return 1000px;
+    } @else {
+        @return 500px;
+    }
+}
+
+// for.
+@for $i from 1 through 4 {
+    #container {
+        p {
+            &:nth-child(#{$i}) {
+                font-size: $i * 10px;
+            }
+        }
+    }
+}
+$color: (red, blue, yellow, green);
+#container {
+    $index: 1;
+    @each $c in $colors{
+        p:nth-child(#{$index}) {
+            color: $c;
+        }
+        $index: $index + 1;
+    }
+}
+
+// map.
+$data: (
+    one: 8px,
+    two: 16px,
+    three: 24px,
+    four: 32px
+);
+@each $count, $font-size in $data {
+    #p-#{$count} {
+        font-size: $font-size;
+    }
+}
+
+// while.
+$cnt: 4;
+@while $cnt > 0 {
+    p:nth-child(#{$cnt}) {
+        font-size: $cnt * 8px;
+    }
+    $cnt: $cnt - 1;
+}
