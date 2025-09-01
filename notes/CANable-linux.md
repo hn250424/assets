@@ -17,7 +17,7 @@ udevadm info -a /dev/ttyACM0
 or
 ```
 lsusb
-sudo lsusb -d 16d0:117e - v | grep -i serial 
+sudo lsusb -d 16d0:117e -v | grep -i serial 
 ```
 
 ## 4. Create a .rules file.
