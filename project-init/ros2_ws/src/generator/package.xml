@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="3">
-    <name>camera</name>
+    <name>generator</name>
     <version>0.0.1</version>
-    <description>Camera ROS2 C++ package</description>
+    <description>Generator ROS2 C++ package</description>
 
     <maintainer email="hn@example.com">hn</maintainer>
 
@@ -18,6 +18,9 @@
 
     <build_depend>interfaces</build_depend>
     <exec_depend>interfaces</exec_depend>
+
+    <build_depend>rclcpp_action</build_depend>
+    <exec_depend>rclcpp_action</exec_depend>
 
     <export>
         <build_type>ament_cmake</build_type>

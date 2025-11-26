@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(camera)
+project(generator)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
@@ -9,14 +9,13 @@ find_package(interfaces REQUIRED)
 
 include_directories(include)
 
-add_executable(camera
+add_executable(generator 
     src/main.cpp
-    src/CameraNode.cpp
 )
-ament_target_dependencies(camera rclcpp rclcpp_action std_msgs interfaces)
+ament_target_dependencies(generator rclcpp rclcpp_action std_msgs interfaces)
 
 install(TARGETS
-    camera
+    generator
     DESTINATION lib/${PROJECT_NAME}
 )
 
