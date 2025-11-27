@@ -3,7 +3,6 @@ project(camera)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(interfaces REQUIRED)
 
@@ -13,7 +12,7 @@ add_executable(camera
     src/main.cpp
     src/CameraNode.cpp
 )
-ament_target_dependencies(camera rclcpp rclcpp_action std_msgs interfaces)
+ament_target_dependencies(camera rclcpp std_msgs interfaces)
 
 install(TARGETS
     camera

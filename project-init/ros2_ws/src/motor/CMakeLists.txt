@@ -3,6 +3,7 @@ project(motor)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(rclcpp_action REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(interfaces REQUIRED)
 
@@ -12,7 +13,7 @@ add_executable(motor
     src/main.cpp
     src/MotorNode.cpp
 )
-ament_target_dependencies(motor rclcpp std_msgs interfaces)
+ament_target_dependencies(motor rclcpp rclcpp_action std_msgs interfaces)
 
 install(TARGETS
     motor

@@ -1,5 +1,0 @@
-colcon build --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-
-colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
-
-colcon build --packages-select camera image_processor --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON

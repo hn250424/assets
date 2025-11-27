@@ -71,8 +71,13 @@ private:
         auto result = std::make_shared<Generator::Result>();
         auto feedback = std::make_shared<Generator::Feedback>();
 
+        std::stringstream ss;
+        for (auto c : goal_handle->get_goal_id()) {
+            ss << std::hex << std::setw(2) << std::setfill('0') << (int) c;
+        }
+        std::string goal_id_str = ss.str();
+        
         double threshold = goal_handle->get_goal()->goal;
-
         int attempts = 0;
         int status = 0;
 
@@ -85,8 +90,16 @@ private:
 
             attempts++;
             feedback->weight = dist_(rng_);
+            
+            RCLCPP_INFO(
+                this->get_logger(),
+                "[%s] Attempts: %d, Feedback weight: %f",
+                goal_id_str.c_str(),
+                attempts,
+                feedback->weight
+            );
+
             goal_handle->publish_feedback(feedback);
-            RCLCPP_INFO(this->get_logger(), "Attempts: %d, Feedback weight: %f", attempts, feedback->weight);
 
             if (feedback->weight >= threshold) {
                 status = 1;
