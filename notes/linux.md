@@ -26,7 +26,6 @@ chmod -x file.sh        * Remove execute permission
 chmod u+x file.sh       * Add execute for user (owner)  
 chmod g-w file.sh       * Remove write for group  
 chmod o=r file.sh       * Set others to read only  
->> 7 rwx / 6 rw- / 5 r-x / 4 r-- / 0 ---
 
 ## tar
 ```
@@ -43,3 +42,26 @@ tar -xzvf file.tar.gz
 -v  * Verbosely list files processed  
 -f  * Specify archive file name  
 ```
+
+## scp
+scp -r dist lit@192.168.1.251:~/
+
+## arm-none-eabi-objcopy(elf -> bin)
+sudo apt-get install binutils-arm-none-eabi
+arm-none-eabi-objcopy -O binary firmware.elf firmware.bin
+
+## usb
+lsusb
+
+## dfu
+sudo dfu-util -l
+sudo dfu-util -a 0 -s 0x08000000:leave -D firmware.bin -d 0483:df11 -S 335536663334
+
+## disk
+lsblk
+sudo fdisk -l
+
+## mount
+sudo mount /dev/sdb1 /mnt/usb
+cp -r /mnt/usb/ti ~/
+sudo umount /mnt/usb
