@@ -1,21 +1,23 @@
 cmake_minimum_required(VERSION 3.8)
-project(gateway)
+project(sensor)
 
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(interfaces REQUIRED)
+find_package(can_driver REQUIRED)
 
 include_directories(include)
 
-add_executable(gateway
+add_executable(sensor
     src/main.cpp
-    src/GatewayNode.cpp
+    src/SensorNode.cpp
 )
-ament_target_dependencies(gateway rclcpp std_msgs interfaces)
+
+ament_target_dependencies(sensor rclcpp std_msgs interfaces can_driver)
 
 install(TARGETS
-    gateway
+    sensor
     DESTINATION lib/${PROJECT_NAME}
 )
 
