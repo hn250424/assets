@@ -1,6 +1,6 @@
 #include "workstation/WorkstationNode.hpp"
 
-WorkstationNode::WorkstationNode() : Node("WorkstationNode") {
+WorkstationNode::WorkstationNode() : Node(interfaces::nodes::WORKSTATION) {
     RCLCPP_INFO(this->get_logger(), "Workstation started");
 
     // sub_ = this->create_subscription<std_msgs::msg::String>(
@@ -12,7 +12,7 @@ WorkstationNode::WorkstationNode() : Node("WorkstationNode") {
     // );
 
     srv_ = this->create_service<interfaces::srv::Example>(
-        "/workstation/sensor",
+        interfaces::services::UPDATE_SENSOR,
         std::bind(&WorkstationNode::ack, this, std::placeholders::_1, std::placeholders::_2)
     );
     rng_.seed(std::random_device{}());

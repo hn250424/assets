@@ -7,17 +7,19 @@ find_package(std_msgs REQUIRED)
 find_package(interfaces REQUIRED)
 find_package(can_driver REQUIRED)
 
-include_directories(include)
-
-add_executable(sensor
+add_executable(${PROJECT_NAME}
     src/main.cpp
     src/SensorNode.cpp
 )
 
-ament_target_dependencies(sensor rclcpp std_msgs interfaces can_driver)
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs interfaces can_driver)
 
 install(TARGETS
-    sensor
+    ${PROJECT_NAME}
     DESTINATION lib/${PROJECT_NAME}
 )
 

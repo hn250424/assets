@@ -12,22 +12,20 @@ target_include_directories(${PROJECT_NAME} PUBLIC
     $<INSTALL_INTERFACE:include>
 )
 
-# Install headers
 install(
     DIRECTORY include/
     DESTINATION include
 )
 
-# Install library
 install(
     TARGETS ${PROJECT_NAME}
     EXPORT export_${PROJECT_NAME}
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
     RUNTIME DESTINATION bin
+    # INCLUDES DESTINATION include
 )
 
-# Export for downstream packages
 ament_export_targets(export_${PROJECT_NAME} HAS_LIBRARY_TARGET)
 ament_export_include_directories(include)
 

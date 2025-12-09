@@ -6,16 +6,19 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(interfaces REQUIRED)
 
-include_directories(include)
-
-add_executable(workstation
+add_executable(${PROJECT_NAME}
     src/main.cpp
     src/WorkstationNode.cpp
 )
-ament_target_dependencies(workstation rclcpp std_msgs interfaces)
+
+target_include_directories(${PROJECT_NAME} PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs interfaces)
 
 install(TARGETS
-    workstation
+    ${PROJECT_NAME}
     DESTINATION lib/${PROJECT_NAME}
 )
 

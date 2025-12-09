@@ -12,4 +12,11 @@ rosidl_generate_interfaces(${PROJECT_NAME}
     ${srv_files}
 )
 
+install(
+    DIRECTORY include/
+    DESTINATION include/${PROJECT_NAME}
+)
+
+ament_export_include_directories(include/${PROJECT_NAME})
+
 ament_package()

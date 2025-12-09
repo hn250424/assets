@@ -3,19 +3,19 @@
 
 using namespace std::chrono_literals;
 
-const int MAX_RETRY_COUNT = 5;
-const int TIMER_DELAY = 3;
+constexpr int MAX_RETRY_COUNT = 5;
+constexpr int TIMER_DELAY = 3;
 
-SensorNode::SensorNode() : Node("SensorNode") {
+SensorNode::SensorNode() : Node(interfaces::nodes::SENSOR) {
     RCLCPP_INFO(this->get_logger(), "SensorNode started");
 
     // pub_ = this->create_publisher<std_msgs::msg::String>("/sensor/state", 10);
-    client_ = this->create_client<interfaces::srv::Example>("/workstation/sensor");
-
+    client_ = this->create_client<interfaces::srv::Example>(interfaces::services::UPDATE_SENSOR);
+    
     auto can = std::make_shared<CanDriver>();
     if (!can->open("vcan0")) {
         RCLCPP_ERROR(this->get_logger(), "Failed to open CAN interface");
-        return;
+        // return;
     }
 
     can_timer_ = this->create_wall_timer(100ms, [this, can]() {

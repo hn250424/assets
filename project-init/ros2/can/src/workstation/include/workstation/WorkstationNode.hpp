@@ -6,6 +6,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
 #include "interfaces/srv/example.hpp"
+#include "interfaces/constants.hpp"
 
 class WorkstationNode : public rclcpp::Node {
 public:
