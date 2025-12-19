@@ -1,36 +1,23 @@
 #include "workstation/WorkstationNode.hpp"
 
 WorkstationNode::WorkstationNode() : Node(interfaces::nodes::WORKSTATION) {
-    RCLCPP_INFO(this->get_logger(), "Workstation started");
+	printf("[Workstation] WorkstationNode started\n");
 
-    // sub_ = this->create_subscription<std_msgs::msg::String>(
-    //     "/sensor/state", 
-    //     10,
-    //     [this](const std_msgs::msg::String::SharedPtr msg) {
-    //         this->subscribe_sensor_state(msg);
-    //     }
-    // );
-
-    srv_ = this->create_service<interfaces::srv::Example>(
-        interfaces::services::UPDATE_SENSOR,
-        std::bind(&WorkstationNode::ack, this, std::placeholders::_1, std::placeholders::_2)
-    );
-    rng_.seed(std::random_device{}());
-    dist_ = std::uniform_int_distribution<int>(0, 1);
+	sub_ = this->create_subscription<interfaces::msg::Example>(
+		interfaces::topics::UPDATE_SENSOR,
+		rclcpp::QoS(1)
+			.reliable()
+			.transient_local()
+			.keep_last(1),
+	    [this](const interfaces::msg::Example::SharedPtr msg) {
+		    this->subscribe_sensor_state(msg);
+	    });
 }
 
-// void WorkstationNode::subscribe_sensor_state(const std_msgs::msg::String::SharedPtr msg) {
-//     RCLCPP_INFO(this->get_logger(), "[Workstation] subscribe: '%s'", msg->data.c_str());
-// }
-
-void WorkstationNode::ack(
-    const std::shared_ptr<interfaces::srv::Example::Request> request,
-    std::shared_ptr<interfaces::srv::Example::Response> response
-) {
-    RCLCPP_INFO(this->get_logger(), "[Workstation] request: %s", request->sensor_value.c_str());
-
-    response->result = dist_(rng_);
-
-    RCLCPP_INFO(this->get_logger(), "[Workstation] response: %d", response->result);
-
+void WorkstationNode::subscribe_sensor_state(const interfaces::msg::Example::SharedPtr msg) {
+	printf("[Workstation] subscribe: acting: %d / pos: %d / detecting: ", msg->acting, msg->pos);
+	for (int i = 0; i < msg->detecting_len; ++i) {
+		printf("%d ", msg->detecting[i]);
+	}
+	printf("\n");
 }

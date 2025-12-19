@@ -1,28 +1,20 @@
 #pragma once
 
-#include <atomic>
+#include "interfaces/constants.hpp"
+#include "interfaces/msg/example.hpp"
 #include "rclcpp/rclcpp.hpp"
 #include "std_msgs/msg/string.hpp"
-#include "interfaces/srv/example.hpp"
-#include "interfaces/constants.hpp"
+#include <atomic>
+#include <thread>
 
 class SensorNode : public rclcpp::Node {
 public:
-    SensorNode();
-    ~SensorNode();
+	SensorNode();
+	~SensorNode();
 
 private:
-    // rclcpp::Publisher<std_msgs::msg::String>::SharedPtr pub_;
-    rclcpp::Client<interfaces::srv::Example>::SharedPtr client_;
+	rclcpp::Publisher<interfaces::msg::Example>::SharedPtr pub_;
 
-    rclcpp::TimerBase::SharedPtr can_timer_;
-    rclcpp::TimerBase::SharedPtr retry_timer_;
-    rclcpp::TimerBase::SharedPtr timeout_timer_;
-    
-    std::atomic<bool> is_updating_{false};
-    std::string last_sensor_value_;
-
-    void update_sensor_value(int retry_count = 0);
-    void schedule_retry(int retry_count);
-    void finish_update(bool success);
+	std::thread can_thread_;
+	std::atomic<bool> running_{true};
 };

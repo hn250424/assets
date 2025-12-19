@@ -1,26 +1,15 @@
 #pragma once
 
-#include <chrono>
-#include <memory>
-#include <random>
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/string.hpp"
-#include "interfaces/srv/example.hpp"
 #include "interfaces/constants.hpp"
+#include "interfaces/msg/example.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 class WorkstationNode : public rclcpp::Node {
 public:
-    WorkstationNode();
+	WorkstationNode();
 
 private:
-    // rclcpp::Subscription<std_msgs::msg::String>::SharedPtr sub_;
-    rclcpp::Service<interfaces::srv::Example>::SharedPtr srv_;
-    std::mt19937 rng_;
-    std::uniform_int_distribution<int> dist_;
+	rclcpp::Subscription<interfaces::msg::Example>::SharedPtr sub_;
 
-    // void subscribe_sensor_state(const std_msgs::msg::String::SharedPtr msg);
-    void ack(
-        const std::shared_ptr<interfaces::srv::Example::Request> request,
-        std::shared_ptr<interfaces::srv::Example::Response> response
-    );
+	void subscribe_sensor_state(const interfaces::msg::Example::SharedPtr msg);
 };
