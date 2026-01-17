@@ -44,7 +44,10 @@ tar -xzvf file.tar.gz
 ```
 
 ## scp
+```bash
 scp -r dist lit@192.168.1.251:~/
+scp -r lit@192.168.1.251:~/dist ./dist
+```
 
 ## arm-none-eabi-objcopy(elf -> bin)
 sudo apt-get install binutils-arm-none-eabi
