@@ -27,8 +27,14 @@ SensorNode::SensorNode() : Node(interfaces::nodes::SENSOR) {
 		while (rclcpp::ok() && running_) {
 			if (can->read(frame)) {
 				auto ros_msg = interfaces::msg::Example();
-				auto data = frame.data;
 
+				const uint32_t can_id = frame.can_id & CAN_EFF_MASK;
+				int id_0 = (can_id >> 24) & 0xFF;
+				int id_1 = (can_id >> 16) & 0xFF;
+				int id_2 = (can_id >> 8) & 0xFF;
+				int id_3 = (can_id >> 0) & 0xFF;
+
+				const uint8_t data = frame.data;
 				ros_msg.acting = data[0];
 				ros_msg.pos = data[1];
 				ros_msg.detecting[1] = data[2] & 0x01;

@@ -10,6 +10,7 @@
 #include <sys/ioctl.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <mutex>
 
 class CanDriver {
 public:
@@ -29,6 +30,7 @@ public:
 	// bool isConnected() const { return sock_ >= 0; }
 
 private:
+	std::mutex mtx_;
 	int sock_ = -1;
 
 	std::string interface_name_;
