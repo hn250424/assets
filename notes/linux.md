@@ -68,3 +68,31 @@ sudo fdisk -l
 sudo mount /dev/sdb1 /mnt/usb
 cp -r /mnt/usb/ti ~/
 sudo umount /mnt/usb
+
+## service
+```bash
+sudo cp ./services/*.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl start example1 example2
+sudo systemctl enable example1 example2
+sudo systemctl status example1 example2
+journalctl -u example1 -u example2 -f
+```
+
+```ini
+[Unit]
+Description=Example Startup Service
+After=network.target
+
+[Service]
+WorkingDirectory=/home/user/ws	# base directory
+User=user
+
+ExecStart=/bin/bash /home/user/ws/scripts/start_example.sh
+
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+```
