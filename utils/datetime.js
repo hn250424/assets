@@ -75,6 +75,23 @@ export function generateOffsetDate(date, offset) {
 }
 
 /**
+ * @param {string} time - e.g. "HH:mm:ss"
+ * @param {number} offset - second
+ * @returns {string} - e.g. "HH:mm:ss"
+ */
+export function generateOffsetTime(time, offset) {
+  const [h, m, s] = time.split(':').map(Number);
+  
+  const dateObj = new Date(1970, 0, 1, h, m, s + offset);
+
+  const hours = String(dateObj.getHours()).padStart(2, '0');
+  const minutes = String(dateObj.getMinutes()).padStart(2, '0');
+  const seconds = String(dateObj.getSeconds()).padStart(2, '0');
+
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+/**
  * Calculates the elapsed time between two datetime strings and returns it in HH:mm:ss format.
  * @param {string} start - The starting datetime (e.g., "YYYY-MM-DD HH:mm:ss").
  * @param {string} end - The ending datetime (e.g., "YYYY-MM-DD HH:mm:ss").
