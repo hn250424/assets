@@ -7,10 +7,11 @@ CanDriver::~CanDriver() {
 	close();
 }
 
-bool CanDriver::open(const std::string& name, int reconnect_interval_ms) {
-	std::lock_guard<std::mutex> lock(mtx_);
+bool CanDriver::open(const std::string& name, OnOpenCallback on_open_cb, int reconnect_interval_ms) {
+	std::lock_guard<std::recursive_mutex> lock(mtx_);
 
 	interface_name_ = name;
+	on_open_cb_ = on_open_cb;
 	reconnect_interval_ms_ = reconnect_interval_ms;
 	last_reconnect_attempt_ = std::chrono::steady_clock::now();
 
@@ -18,12 +19,12 @@ bool CanDriver::open(const std::string& name, int reconnect_interval_ms) {
 }
 
 void CanDriver::close() {
-	std::lock_guard<std::mutex> lock(mtx_);
+	std::lock_guard<std::recursive_mutex> lock(mtx_);
 	closeSocket();
 }
 
 bool CanDriver::openSocket() {
-	printf("[CanDriver] Try openSocket()..\n");
+	printf("[CanDriver] Try open socket..\n");
 
 	closeSocket();
 
@@ -90,6 +91,9 @@ bool CanDriver::openSocket() {
 	tv.tv_usec = 0;
 	setsockopt(sock_, SOL_SOCKET, SO_RCVTIMEO, (const char*)&tv, sizeof(tv));
 
+	if (on_open_cb_) on_open_cb_();
+
+	printf("[CanDriver] Complete opening\n");
 	return true;
 }
 
@@ -102,7 +106,7 @@ void CanDriver::closeSocket() {
 }
 
 bool CanDriver::read(can_frame& frame) {
-	std::lock_guard<std::mutex> lock(mtx_);
+	std::lock_guard<std::recursive_mutex> lock(mtx_);
 
 	// If socket is not connected, try reconncecting.
 	// Prepare for next attempt.
@@ -134,8 +138,8 @@ bool CanDriver::read(can_frame& frame) {
 }
 
 bool CanDriver::write(const can_frame& frame) {
-	std::lock_guard<std::mutex> lock(mtx_);
-	
+	std::lock_guard<std::recursive_mutex> lock(mtx_);
+
 	if (sock_ < 0) {
 		if (shouldRetryReconnect()) {
 			openSocket();
