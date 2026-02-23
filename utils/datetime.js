@@ -92,6 +92,24 @@ export function generateOffsetTime(time, offset) {
 }
 
 /**
+ * 
+ * @param {string} startDatetime - e.g. "YYYY-MM-DD HH:mm:ss"
+ * @param {string} endDatetime - e.g. "YYYY-MM-DD HH:mm:ss"
+ */
+export function getElapsedTime(startDatetime, endDatetime) {
+  const dStart = new Date(startDatetime.replace(" ", "T"));
+  const dEnd = new Date(endDatetime.replace(" ", "T"));
+
+  const diffSec = Math.max(0, Math.floor((dEnd - dStart) / 1000));
+
+  const h = Math.floor(diffSec / 3600);
+  const m = Math.floor((diffSec % 3600) / 60);
+  const s = diffSec % 60;
+
+  return [h, m, s].map(v => String(v).padStart(2, "0")).join(":");
+}
+
+/**
  * Calculates the elapsed time between two datetime strings and returns it in HH:mm:ss format.
  * @param {string} start - The starting datetime (e.g., "YYYY-MM-DD HH:mm:ss").
  * @param {string} end - The ending datetime (e.g., "YYYY-MM-DD HH:mm:ss").
