@@ -12,3 +12,4 @@
 - Be extremely precise with naming. Prefer correctness over brevity. If a feature addition causes existing names to become ambiguous or inaccurate, refactor them until they precisely represent their responsibilities again.
 - Be extremely strict about consistency. If multiple things belong to the same category, treat them consistently. Do not introduce special cases for individual members merely because they seem more convenient.
 - Avoid comments by default. Add a concise comment only when the code's intent or non-obvious reasoning would otherwise be misunderstood. Do not comment on obvious behavior or restate what the code already expresses.
+- Keep unit tests economical: cover business-logic flows only. No E2E, no coverage for its own sake.
