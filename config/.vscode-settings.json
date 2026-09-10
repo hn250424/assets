@@ -6,6 +6,8 @@
   "files.eol": "\n",
   "workbench.colorTheme": "Claude Dark Theme",
   "workbench.iconTheme": "material-icon-theme",
-  "editor.fontFamily": "NanumGothicCoding, JetBrains Mono, Consolas, monospace",
-  "files.trimTrailingWhitespace": true
+  "editor.fontFamily": "'NanumGothicCoding', Consolas, monospace",
+  "files.trimTrailingWhitespace": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": true
 }
